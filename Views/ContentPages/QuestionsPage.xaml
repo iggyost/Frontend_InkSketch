@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Frontend_InkSketch.Views.ContentPages.QuestionsPage"
+             Title="QuestionsPage"
+             Padding="-2">
+    <Grid BackgroundColor="#BFFC8D58">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Text="#Теги"
+               TextColor="White"
+               VerticalOptions="End"
+               HorizontalOptions="Center"
+               FontSize="30"
+               FontFamily="Pacifico-Regular"></Label>
+        <Grid Grid.Row="1">
+            <Border StrokeShape="RoundRectangle 30,30,0,0">
+                <Grid>
+                    <ActivityIndicator VerticalOptions="Center"
+                                       HorizontalOptions="Center"
+                                       x:Name="loadingTag"
+                                       WidthRequest="32"
+                                       HeightRequest="32"
+                                       Color="Black"
+                                       ZIndex="1"></ActivityIndicator>
+                    <Border Margin="0,512,0,0"
+                            BackgroundColor="Transparent"
+                            StrokeThickness="0"
+                            VerticalOptions="EndAndExpand"
+                            HorizontalOptions="Center">
+                        <Grid>
+                            <Image Source="border_shapes_create.png"
+                                   Aspect="AspectFill"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"></Image>
+                            <Button BackgroundColor="Transparent"
+                                    x:Name="enterBtn"
+                                    Clicked="enterBtn_Clicked"
+                                    BorderWidth="0"
+                                    Text="Творить"
+                                    TextColor="#6E3637"
+                                    FontFamily="Pacifico-Regular"
+                                    FontSize="28"></Button>
+                        </Grid>
+                    </Border>
+                    <VerticalStackLayout Margin="16">
+                        <Label TextColor="#6E3637"
+                               FontSize="24"
+                               FontFamily="Pacifico-Regular"
+                               Margin="32,0"
+                               TextType="Html">
+                            <![CDATA[
+                             Выбери <strong style>1 или 2</strong> своих тега.
+                             ]]>
+                        </Label>
+                        <Border Margin="16"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 15"
+                                BackgroundColor="#FFFCFC">
+                            <Border.Shadow>
+                                <Shadow Offset="0,4"
+                                        Opacity="0.25">
+                                </Shadow>
+                            </Border.Shadow>
+                            <Grid Margin="16,8">
+                                <CollectionView x:Name="tagsCv"
+                                                Loaded="tagsCv_Loaded">
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout Orientation="Vertical"
+                                                           ItemSpacing="8"></LinearItemsLayout>
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Label FontSize="24"
+                                                   TextColor="Black"
+                                                   AutomationId="{Binding TagId}"
+                                                   Text="{Binding Name, StringFormat='{}#{0}'}"
+                                                   Margin="16,0">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>

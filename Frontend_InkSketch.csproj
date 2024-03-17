@@ -1,0 +1,266 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
+		<OutputType>Exe</OutputType>
+		<RootNamespace>Frontend_InkSketch</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Display name -->
+		<ApplicationTitle>Frontend_InkSketch</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.frontend_inksketch</ApplicationId>
+		<ApplicationIdGuid>11869a1c-559e-4354-9e65-329b6797a0e3</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Resources\Fonts\CraftyGirls-Regular.ttf" />
+		<None Remove="Resources\Fonts\Pacifico-Regular.ttf" />
+		<None Remove="Resources\Images\back_main.png" />
+		<None Remove="Resources\Images\back_profile.png" />
+		<None Remove="Resources\Images\back_questions.png" />
+		<None Remove="Resources\Images\border_shapes.png" />
+		<None Remove="Resources\Images\border_shapes_create.png" />
+		<None Remove="Resources\Images\Content\img0269a909546c4007d4bc4513811a526aimg.jpg" />
+		<None Remove="Resources\Images\Content\img027010376641e2cce1920fb4e9861dd9img.jpg" />
+		<None Remove="Resources\Images\Content\img03960ace730429c5fa18bb6d8c94f260img.jpg" />
+		<None Remove="Resources\Images\Content\img0817f924948b600a5bc04e52198b16a9img.jpg" />
+		<None Remove="Resources\Images\Content\img0d77270b43baa3fac62d60b5b57178c2img.jpg" />
+		<None Remove="Resources\Images\Content\img0defa5e65cbe1e70380bfce7f9aa417aimg.jpg" />
+		<None Remove="Resources\Images\Content\img1001cdba4075d188c24cebc7eaddeacdimg.jpg" />
+		<None Remove="Resources\Images\Content\img10c5ca7af69cae6b2d16370d695aef93img.jpg" />
+		<None Remove="Resources\Images\Content\img118431e2d00fe5dd86a45b67f60e8f9aimg.jpg" />
+		<None Remove="Resources\Images\Content\img1f5793bcf4c9de7047d281c45e4a500eimg.jpg" />
+		<None Remove="Resources\Images\Content\img2069b0f88de372fe15307ec9f1bd72f3img.jpg" />
+		<None Remove="Resources\Images\Content\img21b1cae1bd0da7c51014dbd3f2f8a726img.jpg" />
+		<None Remove="Resources\Images\Content\img240c93acf8cf20cb4364871df8ed0318img.jpg" />
+		<None Remove="Resources\Images\Content\img244e61630316bb60639d8a630cb70027img.jpg" />
+		<None Remove="Resources\Images\Content\img2bc7f85290054769fd6d63aa316fa877img.jpg" />
+		<None Remove="Resources\Images\Content\img2c16175c0f7082eebc137526f8184abaimg.jpg" />
+		<None Remove="Resources\Images\Content\img3abc7ed861583e6ba8130edff6214170img.jpg" />
+		<None Remove="Resources\Images\Content\img3bae6e4d3cbf4c6822b848754a73b115img.jpg" />
+		<None Remove="Resources\Images\Content\img3bbf28545001d03ba0db9fec96503f24img.jpg" />
+		<None Remove="Resources\Images\Content\img3e45954cb24eee5d9df0434a20b84cd2img.jpg" />
+		<None Remove="Resources\Images\Content\img446f6a7081895b5f0f322eac1e98808fimg.jpg" />
+		<None Remove="Resources\Images\Content\img4aff3483c662848bae5e024543fff439img.jpg" />
+		<None Remove="Resources\Images\Content\img507a1f404306d1a3b9053511b3c397bbimg.jpg" />
+		<None Remove="Resources\Images\Content\img509751f4942e3df0a07f684aa8a2641dimg.jpg" />
+		<None Remove="Resources\Images\Content\img5314ed7d0f3001f622cee387c7d64c8aimg.jpg" />
+		<None Remove="Resources\Images\Content\img58c6bd96a5682515a5ac47a91e623c9fimg.jpg" />
+		<None Remove="Resources\Images\Content\img59014720582bbefea36728701fd3c7a4img.jpg" />
+		<None Remove="Resources\Images\Content\img5ab470f138fe4ea4b00be5644a4bb4baimg.jpg" />
+		<None Remove="Resources\Images\Content\img5b4c439ac2972edc20ef384167c28430img.jpg" />
+		<None Remove="Resources\Images\Content\img5b8fe3ac75eebfc5ce6daf52fa9aee49img.jpg" />
+		<None Remove="Resources\Images\Content\img5c6cd66a99d83d3546ed602dc66721d9img.jpg" />
+		<None Remove="Resources\Images\Content\img5f837ed36d7ac477e1dae44cb1b8a5bdimg.jpg" />
+		<None Remove="Resources\Images\Content\img6606b1fd682d1b5b5e2ab0d4b7227e9cimg.jpg" />
+		<None Remove="Resources\Images\Content\img661b0f71473e478fc5c5132a135f73abimg.jpg" />
+		<None Remove="Resources\Images\Content\img66c7e64299b2349b736ccb3a90af5ecfimg.jpg" />
+		<None Remove="Resources\Images\Content\img684ecc39cfbc63e06eeffc5513c12d78img.jpg" />
+		<None Remove="Resources\Images\Content\img685720a2d439b3af4788f445a56fc4aeimg.jpg" />
+		<None Remove="Resources\Images\Content\img6c9850dfd44f6f8ff4824ab48d6e97e2img.jpg" />
+		<None Remove="Resources\Images\Content\img6dc071bcd54aefed49907cc90be6c815img.jpg" />
+		<None Remove="Resources\Images\Content\img6fe655e1de07a83426b7107827614a81img.jpg" />
+		<None Remove="Resources\Images\Content\img722535dc7fdf42d9e052b9e1961353a8img.jpg" />
+		<None Remove="Resources\Images\Content\img790281ca1d56b00de3f16f97c384ebcdimg.jpg" />
+		<None Remove="Resources\Images\Content\img79e20379256b10bf4e5db3de6c01f042img.jpg" />
+		<None Remove="Resources\Images\Content\img848d83a4c0f492b41dae00f40bcf907fimg.jpg" />
+		<None Remove="Resources\Images\Content\img85b91782016bafcc80dbf098efc5d0f6img.jpg" />
+		<None Remove="Resources\Images\Content\img85f4d6f0a28b4225025eed74f327b4eaimg.jpg" />
+		<None Remove="Resources\Images\Content\img877d915caf71ecdff018f2e0c08e4a09img.jpg" />
+		<None Remove="Resources\Images\Content\img890ca06f318090c8e1930b32f38afa26img.jpg" />
+		<None Remove="Resources\Images\Content\img8b795e4abba62565e2c11c6ad70e3265img.jpg" />
+		<None Remove="Resources\Images\Content\img8d6646e3acaf9b4b38d7a8a3076cdf1cimg.jpg" />
+		<None Remove="Resources\Images\Content\img8f2cf3d9be6f616eb1b2eaeda853b8ffimg.jpg" />
+		<None Remove="Resources\Images\Content\img9a67d462a95357a682babe3f7ae8782bimg.jpg" />
+		<None Remove="Resources\Images\Content\img9d5a49c6ea2c0d1e272498ec2a80fbf0img.jpg" />
+		<None Remove="Resources\Images\Content\imga3fbab6381a279bc79f360b0405bc358img.jpg" />
+		<None Remove="Resources\Images\Content\imga557df6ad4ad92e62f62ef28c956e560img.jpg" />
+		<None Remove="Resources\Images\Content\imga711056cb5f3fe788679a0191ee1e44bimg.jpg" />
+		<None Remove="Resources\Images\Content\imgab3badef8b60bcd4f50704baf251fdbdimg.jpg" />
+		<None Remove="Resources\Images\Content\imgb1c30c4c58eb5e17de1c4f24319a2f0bimg.jpg" />
+		<None Remove="Resources\Images\Content\imgb1faceec48af14067f75203c06aa6c45img.jpg" />
+		<None Remove="Resources\Images\Content\imgb21f67df1b3ae7ea91890d4cc9c01b87img.jpg" />
+		<None Remove="Resources\Images\Content\imgb2ddc252e1e7c7a1325cdebf1a8f5f3dimg.jpg" />
+		<None Remove="Resources\Images\Content\imgb4b102139fd6e50d71d61fa19368b74eimg.jpg" />
+		<None Remove="Resources\Images\Content\imgb8db8c0c428334ef9a7cde4f7a786f58img.jpg" />
+		<None Remove="Resources\Images\Content\imgbdf3bbadf5a8155c2efd58f3c2e7a765img.jpg" />
+		<None Remove="Resources\Images\Content\imgbebeb17e984762eacbaa4007e3c9af44img.jpg" />
+		<None Remove="Resources\Images\Content\imgbf19269099ef901dd9d66fc6372248d2img.jpg" />
+		<None Remove="Resources\Images\Content\imgc02d1f75aa1f8cf6ef4999d349719e0eimg.jpg" />
+		<None Remove="Resources\Images\Content\imgc27edb7550594633642a408d04226442img.jpg" />
+		<None Remove="Resources\Images\Content\imgc3b4b43b9ab531ecbeffa16625e5b73eimg.jpg" />
+		<None Remove="Resources\Images\Content\imgcec49dc552d48b73d1a541cea1f879b8img.jpg" />
+		<None Remove="Resources\Images\Content\imgd43240bcbd65c6328928a32b82400fabimg.jpg" />
+		<None Remove="Resources\Images\Content\imgd4e5418db14540cd5009c47a77c6a79cimg.jpg" />
+		<None Remove="Resources\Images\Content\imgdcac3b4856c3f1f74b98392462d8d237img.jpg" />
+		<None Remove="Resources\Images\Content\imgde2880c90e84aa97de7f01f54a40d564img.jpg" />
+		<None Remove="Resources\Images\Content\imgde3cf0906bd0cc496b4c76a584f83d4cimg.jpg" />
+		<None Remove="Resources\Images\Content\imge3c1ecfc4c9ac50f0ac6472428884f63img.jpg" />
+		<None Remove="Resources\Images\Content\imge40c52740be9fbb22c4394892126df55img.jpg" />
+		<None Remove="Resources\Images\Content\imge4a7502484d7cc5ee1083dfcfbf51680img.jpg" />
+		<None Remove="Resources\Images\Content\imgf12ece06095542889bb12d8ced2e255bimg.jpg" />
+		<None Remove="Resources\Images\Content\imgf3dd98d790c6cacdf09acf9d3931abb9img.jpg" />
+		<None Remove="Resources\Images\Content\imgf767c2945bb67c8e0ad8b425d70483fdimg.jpg" />
+		<None Remove="Resources\Images\Content\imgf907b5a473de896b310df21f13b83302img.jpg" />
+		<None Remove="Resources\Images\edit_icon.png" />
+		<None Remove="Resources\Images\favorite_icon.svg" />
+		<None Remove="Resources\Images\favorite_icon_empty.png" />
+		<None Remove="Resources\Images\favorite_icon_filled.png" />
+		<None Remove="Resources\Images\folder_closed.png" />
+		<None Remove="Resources\Images\folder_opened.png" />
+		<None Remove="Resources\Images\home_icon.svg" />
+		<None Remove="Resources\Images\lamp_logo.png" />
+		<None Remove="Resources\Images\profile_icon.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Images\Content\img0269a909546c4007d4bc4513811a526aimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img027010376641e2cce1920fb4e9861dd9img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img03960ace730429c5fa18bb6d8c94f260img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img0817f924948b600a5bc04e52198b16a9img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img0d77270b43baa3fac62d60b5b57178c2img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img0defa5e65cbe1e70380bfce7f9aa417aimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img1001cdba4075d188c24cebc7eaddeacdimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img10c5ca7af69cae6b2d16370d695aef93img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img118431e2d00fe5dd86a45b67f60e8f9aimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img1f5793bcf4c9de7047d281c45e4a500eimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img2069b0f88de372fe15307ec9f1bd72f3img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img21b1cae1bd0da7c51014dbd3f2f8a726img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img240c93acf8cf20cb4364871df8ed0318img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img244e61630316bb60639d8a630cb70027img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img2bc7f85290054769fd6d63aa316fa877img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img2c16175c0f7082eebc137526f8184abaimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img3abc7ed861583e6ba8130edff6214170img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img3bae6e4d3cbf4c6822b848754a73b115img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img3bbf28545001d03ba0db9fec96503f24img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img3e45954cb24eee5d9df0434a20b84cd2img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img446f6a7081895b5f0f322eac1e98808fimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img4aff3483c662848bae5e024543fff439img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img507a1f404306d1a3b9053511b3c397bbimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img509751f4942e3df0a07f684aa8a2641dimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img5314ed7d0f3001f622cee387c7d64c8aimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img58c6bd96a5682515a5ac47a91e623c9fimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img59014720582bbefea36728701fd3c7a4img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img5ab470f138fe4ea4b00be5644a4bb4baimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img5b4c439ac2972edc20ef384167c28430img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img5b8fe3ac75eebfc5ce6daf52fa9aee49img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img5c6cd66a99d83d3546ed602dc66721d9img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img5f837ed36d7ac477e1dae44cb1b8a5bdimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img6606b1fd682d1b5b5e2ab0d4b7227e9cimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img661b0f71473e478fc5c5132a135f73abimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img66c7e64299b2349b736ccb3a90af5ecfimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img684ecc39cfbc63e06eeffc5513c12d78img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img685720a2d439b3af4788f445a56fc4aeimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img6c9850dfd44f6f8ff4824ab48d6e97e2img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img6dc071bcd54aefed49907cc90be6c815img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img6fe655e1de07a83426b7107827614a81img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img722535dc7fdf42d9e052b9e1961353a8img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img790281ca1d56b00de3f16f97c384ebcdimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img79e20379256b10bf4e5db3de6c01f042img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img848d83a4c0f492b41dae00f40bcf907fimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img85b91782016bafcc80dbf098efc5d0f6img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img85f4d6f0a28b4225025eed74f327b4eaimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img877d915caf71ecdff018f2e0c08e4a09img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img890ca06f318090c8e1930b32f38afa26img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img8b795e4abba62565e2c11c6ad70e3265img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img8d6646e3acaf9b4b38d7a8a3076cdf1cimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img8f2cf3d9be6f616eb1b2eaeda853b8ffimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img9a67d462a95357a682babe3f7ae8782bimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\img9d5a49c6ea2c0d1e272498ec2a80fbf0img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imga3fbab6381a279bc79f360b0405bc358img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imga557df6ad4ad92e62f62ef28c956e560img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imga711056cb5f3fe788679a0191ee1e44bimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgab3badef8b60bcd4f50704baf251fdbdimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgb1c30c4c58eb5e17de1c4f24319a2f0bimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgb1faceec48af14067f75203c06aa6c45img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgb21f67df1b3ae7ea91890d4cc9c01b87img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgb2ddc252e1e7c7a1325cdebf1a8f5f3dimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgb4b102139fd6e50d71d61fa19368b74eimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgb8db8c0c428334ef9a7cde4f7a786f58img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgbdf3bbadf5a8155c2efd58f3c2e7a765img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgbebeb17e984762eacbaa4007e3c9af44img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgbf19269099ef901dd9d66fc6372248d2img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgc02d1f75aa1f8cf6ef4999d349719e0eimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgc27edb7550594633642a408d04226442img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgc3b4b43b9ab531ecbeffa16625e5b73eimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgcec49dc552d48b73d1a541cea1f879b8img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgd43240bcbd65c6328928a32b82400fabimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgd4e5418db14540cd5009c47a77c6a79cimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgdcac3b4856c3f1f74b98392462d8d237img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgde2880c90e84aa97de7f01f54a40d564img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgde3cf0906bd0cc496b4c76a584f83d4cimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imge3c1ecfc4c9ac50f0ac6472428884f63img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imge40c52740be9fbb22c4394892126df55img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imge4a7502484d7cc5ee1083dfcfbf51680img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgf12ece06095542889bb12d8ced2e255bimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgf3dd98d790c6cacdf09acf9d3931abb9img.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgf767c2945bb67c8e0ad8b425d70483fdimg.jpg" />
+	  <MauiImage Include="Resources\Images\Content\imgf907b5a473de896b310df21f13b83302img.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiXaml Update="Views\ContentPages\FavoritesPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ContentPages\HomePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ContentPages\PasswordEnterPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ContentPages\PhoneEnterPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ContentPages\ProfilePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ContentPages\QuestionsPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ContentPages\RegistrationPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ContentPages\WelcomePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+	</ItemGroup>
+
+</Project>

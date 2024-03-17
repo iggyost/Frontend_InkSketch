@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Frontend_InkSketch.Views.ContentPages"
+             x:Class="Frontend_InkSketch.Views.ContentPages.HomePage"
+             Title="HomePage"
+             Shell.NavBarIsVisible="False"
+             x:Name="homePage"
+             BindingContext="{x:Reference homePage}"
+             Loaded="homePage_Loaded">
+    <Grid>
+        <Image Source="back_main.png"></Image>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.4*"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <RefreshView x:Name="refreshCv"
+                         Refreshing="refreshCv_Refreshing"
+                         Grid.Row="1">
+                <CollectionView x:Name="imagesCv"
+                                Loaded="imagesCv_Loaded"
+                                RemainingItemsThreshold="2"
+                                RemainingItemsThresholdReached="imagesCv_RemainingItemsThresholdReached"
+                                Grid.Row="1"
+                                VerticalScrollBarVisibility="Always">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical"
+                                         Span="2"
+                                         VerticalItemSpacing="8"></GridItemsLayout>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <VerticalStackLayout Spacing="4"
+                                                 WidthRequest="170">
+                                <Border StrokeShape="RoundRectangle 20"
+                                        HeightRequest="256"
+                                        VerticalOptions="Start">
+                                    <Grid>
+                                        <Border HorizontalOptions="End"
+                                                VerticalOptions="Start"
+                                                HeightRequest="32"
+                                                WidthRequest="32"
+                                                Margin="8"
+                                                StrokeThickness="0"
+                                                StrokeShape="RoundRectangle 8" 
+                                                BackgroundColor="#40FFFFFF"
+                                                ZIndex="1">
+                                            <Border.Shadow>
+                                                <Shadow Offset="-4,4"
+                                                        Opacity="0.3"></Shadow>
+                                            </Border.Shadow>
+                                            <ImageButton x:Name="favoriteBtn"
+                                                         Loaded="favoriteBtn_Loaded"
+                                                         Clicked="favoriteBtn_Clicked"
+                                                         AutomationId="{Binding ImageId}"></ImageButton>
+                                        </Border>
+                                        <Image Source="{Binding SourceImage}"
+                                               Aspect="AspectFill"></Image>
+                                    </Grid>
+                                </Border>
+
+                                <Border Background="{Binding HexColor}"
+                                        AutomationId="{Binding ImageId}"
+                                        Loaded="Border_Loaded"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 20"
+                                        Padding="8,4">
+                                    <Label TextColor="White"
+                                           AutomationId="{Binding ImageId}"
+                                           Loaded="Label_Loaded"
+                                           HorizontalOptions="Center"
+                                           FontAttributes="Bold"
+                                           Text="{Binding Name, StringFormat='{}#{0}'}"></Label>
+                                </Border>
+
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.Footer>
+                        <ActivityIndicator Color="Black"
+                                           x:Name="cvFooterActInd"></ActivityIndicator>
+                    </CollectionView.Footer>
+                </CollectionView>
+
+            </RefreshView>
+        </Grid>
+    </Grid>
+</ContentPage>

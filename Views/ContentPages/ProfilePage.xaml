@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Frontend_InkSketch.Views.ContentPages.ProfilePage"
+             Title="ProfilePage"
+             Shell.NavBarIsVisible="False"
+             Loaded="ContentPage_Loaded">
+    <Grid>
+        <Image Source="back_profile.png"
+               Aspect="AspectFill"></Image>
+        <Grid Margin="16,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.45*"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.1*"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="1"
+                        VerticalOptions="End"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Выйти из аккаунта"
+                        FontSize="17"
+                        TextColor="#6E3637"
+                        Margin="0,16"
+                        BackgroundColor="#BFFFFFFF"
+                        x:Name="exitBtn"
+                        Clicked="exitBtn_Clicked">
+                    <Button.Shadow>
+                        <Shadow Offset="-8,8"
+                            Opacity="0.2"
+                            Radius="20"></Shadow>
+                    </Button.Shadow>
+                </Button>
+                <HorizontalStackLayout Spacing="12"
+                                       VerticalOptions="Start"
+                                       HorizontalOptions="Start">
+                    <Label FontSize="26"
+                           TextColor="White"
+                           FontAttributes="Bold"
+                           x:Name="userNameLbl"></Label>
+                    <ImageButton Source="edit_icon.png"
+                                 Aspect="AspectFill"
+                                 VerticalOptions="Start"
+                                 HeightRequest="28"
+                                 WidthRequest="28"
+                                 Clicked="ImageButton_Clicked"></ImageButton>
+                </HorizontalStackLayout>
+                <VerticalStackLayout Grid.Row="1">
+                    <Border BackgroundColor="Transparent"
+                            StrokeThickness="0">
+                        <Grid>
+                            <Image Source="folder_opened.png"></Image>
+                            <Grid Margin="40,8">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.4*"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="Мои теги"
+                                           TextColor="White"
+                                           Grid.Column="1"
+                                           FontSize="21"
+                                           FontAttributes="Bold"></Label>
+                                </Grid>
+                                <CollectionView Grid.Row="1"
+                                                Margin="0,10,0,24"
+                                                x:Name="tagsCv"
+                                                Background="Transparent">
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout Orientation="Horizontal"
+                                                           ItemSpacing="8"></LinearItemsLayout>
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Label FontSize="20"
+                                                   FontFamily="CraftyGirls-Regular"
+                                                   FontAttributes="Bold"
+                                                   TextColor="White"
+                                                   x:Name="tagNameLbl"
+                                                   VerticalOptions="Start"
+                                                   HorizontalOptions="Start"
+                                                   Text="{Binding Tagname, StringFormat='{}#{0}'}"></Label>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                                <HorizontalStackLayout Grid.Row="1"
+                                                       Margin="4,12,0,16"
+                                                       Spacing="8">
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </VerticalStackLayout>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>

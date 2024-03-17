@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Frontend_InkSketch.Views.ContentPages.FavoritesPage"
+             Title="FavoritesPage"
+             Shell.NavBarIsVisible="False">
+    <Grid>
+        <Image Source="back_main.png"></Image>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.4*"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand"
+                    HeightRequest="144"
+                    WidthRequest="192" 
+                    BackgroundColor="#BFFFFFFF">
+                <Border.Shadow>
+                    <Shadow Offset="-8,8"
+                            Opacity="0.2"
+                            Radius="20"></Shadow>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="8"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center">
+                    <Label Text="Избранное"
+                           TextColor="#6E3637"
+                       FontSize="28"
+                           FontAttributes="Bold"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"></Label>
+                    <Image Source="favorite_icon_filled.png"
+                       Aspect="AspectFill"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       HeightRequest="64"
+                       WidthRequest="64"></Image>
+                </VerticalStackLayout>
+            </Border>
+            <RefreshView Grid.Row="1"
+                         x:Name="refreshCv"
+                         Refreshing="refreshCv_Refreshing">
+                <CollectionView x:Name="imagesCv"
+                            Loaded="imagesCv_Loaded"
+                            Grid.Row="1">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                       ItemSpacing="8"></LinearItemsLayout>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems Mode="Execute">
+                                        <SwipeItem Invoked="SwipeItem_Invoked"
+                                               AutomationId="{Binding ImageId}">
+
+                                        </SwipeItem>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <Border StrokeShape="RoundRectangle 20"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Start">
+                                    <Image Source="{Binding SourceImage}"
+                                       Aspect="AspectFill"></Image>
+                                </Border>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </Grid>
+    </Grid>
+</ContentPage>

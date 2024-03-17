@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Frontend_InkSketch.Views.ContentPages.WelcomePage"
+             Title="WelcomePage"
+             Loaded="ContentPage_Loaded">
+    <Grid BackgroundColor="#234851">
+        <VerticalStackLayout VerticalOptions="Center"
+                             HorizontalOptions="Center">
+            <Label Text="Idea"
+                   FontFamily="CraftyGirls-Regular"
+                   FontSize="64"
+                   HorizontalOptions="Center"
+                   TextColor="White">
+                <Label.Shadow>
+                    <Shadow Radius="8"
+                            Offset="-4, 4"
+                            Opacity="0.4"></Shadow>
+                </Label.Shadow>
+            </Label>
+            <Image Source="lamp_logo.png"
+                   WidthRequest="256"
+                   HeightRequest="256"
+                   Aspect="AspectFill"></Image>
+        </VerticalStackLayout>
+        <VerticalStackLayout VerticalOptions="End"
+                             Margin="16,48"
+                             HorizontalOptions="Center"
+                             Spacing="8">
+            <Label Text="Загрузка..."
+                   x:Name="loadingLbl"
+                   TextColor="White"
+                   FontSize="20"
+                   FontFamily="CraftyGirls-Regular"></Label>
+            <ActivityIndicator IsRunning="True"
+                               Color="White"
+                               x:Name="loadingActInd"></ActivityIndicator>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
