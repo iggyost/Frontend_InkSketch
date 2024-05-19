@@ -13,6 +13,12 @@
                               Route="Home">
                 </ShellContent>
             </Tab>
+            <Tab Icon="tag_icon.svg"
+                 Title="Теги">
+                <ShellContent ContentTemplate="{DataTemplate local:TagsPage}"
+                              Route="Tag">
+                </ShellContent>
+            </Tab>
             <Tab Icon="favorite_icon.svg"
                  Title="Закладки">
                 <ShellContent ContentTemplate="{DataTemplate local:FavoritesPage}"

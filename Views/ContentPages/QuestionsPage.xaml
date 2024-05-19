@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Frontend_InkSketch.Views.ContentPages.QuestionsPage"
              Title="QuestionsPage"
-             Padding="-2">
+             Padding="-2"
+             Loaded="ContentPage_Loaded">
     <Grid BackgroundColor="#BFFC8D58">
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.2*"></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Label Text="#Теги"
@@ -25,10 +26,10 @@
                                        HeightRequest="32"
                                        Color="Black"
                                        ZIndex="1"></ActivityIndicator>
-                    <Border Margin="0,512,0,0"
-                            BackgroundColor="Transparent"
+                    <Border BackgroundColor="Transparent"
                             StrokeThickness="0"
-                            VerticalOptions="EndAndExpand"
+                            VerticalOptions="End"
+                            Margin="0,560,0,0"
                             HorizontalOptions="Center">
                         <Grid>
                             <Image Source="border_shapes_create.png"
@@ -49,13 +50,12 @@
                         <Label TextColor="#6E3637"
                                FontSize="24"
                                FontFamily="Pacifico-Regular"
-                               Margin="32,0"
-                               TextType="Html">
-                            <![CDATA[
-                             Выбери <strong style>1 или 2</strong> своих тега.
-                             ]]>
-                        </Label>
-                        <Border Margin="16"
+                               Margin="16,0"
+                               Text="Выберите по одному понравившемуся изображению"></Label>
+
+                        <Border Margin="8"
+                                HeightRequest="220"
+                                Padding="0,0,0,8"
                                 StrokeThickness="0"
                                 StrokeShape="RoundRectangle 15"
                                 BackgroundColor="#FFFCFC">
@@ -64,29 +64,109 @@
                                         Opacity="0.25">
                                 </Shadow>
                             </Border.Shadow>
-                            <Grid Margin="16,8">
-                                <CollectionView x:Name="tagsCv"
-                                                Loaded="tagsCv_Loaded">
-                                    <CollectionView.ItemsLayout>
-                                        <LinearItemsLayout Orientation="Vertical"
-                                                           ItemSpacing="8"></LinearItemsLayout>
-                                    </CollectionView.ItemsLayout>
-                                    <CollectionView.ItemTemplate>
+                            <Grid>
+                                <CarouselView x:Name="firstImagesCarousel">
+                                    <CarouselView.ItemTemplate>
                                         <DataTemplate>
-                                            <Label FontSize="24"
-                                                   TextColor="Black"
-                                                   AutomationId="{Binding TagId}"
-                                                   Text="{Binding Name, StringFormat='{}#{0}'}"
-                                                   Margin="16,0">
-                                                <Label.GestureRecognizers>
-                                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
-                                                </Label.GestureRecognizers>
-                                            </Label>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition Height="32"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Border BackgroundColor="Transparent"
+                                                        StrokeThickness="0"
+                                                        HeightRequest="144"
+                                                        HorizontalOptions="Center"
+                                                        VerticalOptions="Center"
+                                                        Margin="8"
+                                                        x:Name="firstImageBorder">
+                                                    <Border.GestureRecognizers>
+                                                        <TapGestureRecognizer x:Name="firstImageBorderTap"
+                                                                              Tapped="firstImageBorderTap_Tapped"
+                                                                              AutomationId="{Binding TagId}"></TapGestureRecognizer>
+                                                        <TapGestureRecognizer x:Name="firstImageBorderDoubleTap"
+                                                                              NumberOfTapsRequired="2"
+                                                                              Tapped="firstImageBorderDoubleTap_Tapped"
+                                                                              AutomationId="{Binding TagId}"></TapGestureRecognizer>
+                                                    </Border.GestureRecognizers>
+                                                    <Image Aspect="AspectFill"
+                                                           Source="{Binding SourceImage}"
+                                                           HeightRequest="146"
+                                                           WidthRequest="96"></Image>
+                                                </Border>
+                                                <Image x:Name="firstCheckImage"
+                                                       Grid.Row="1"
+                                                       HeightRequest="32"
+                                                       WidthRequest="32"
+                                                       Aspect="AspectFill"
+                                                       IsVisible="false"
+                                                       Source="check_icon.png"
+                                                       AutomationId="{Binding TagId}"
+                                                       Loaded="firstCheckImage_Loaded"></Image>
+                                            </Grid>
                                         </DataTemplate>
-                                    </CollectionView.ItemTemplate>
-                                </CollectionView>
+                                    </CarouselView.ItemTemplate>
+                                </CarouselView>
                             </Grid>
                         </Border>
+
+                        <Border Margin="8"
+                                HeightRequest="220"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 15"
+                                BackgroundColor="#FFFCFC"
+                                Padding="0,0,0,8">
+                            <Border.Shadow>
+                                <Shadow Offset="0,4"
+                                        Opacity="0.25">
+                                </Shadow>
+                            </Border.Shadow>
+                            <Grid>
+                                <CarouselView x:Name="secondImagesCarousel">
+                                    <CarouselView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition Height="32"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Border BackgroundColor="Transparent"
+                                                        StrokeThickness="0"
+                                                        HeightRequest="144"
+                                                        HorizontalOptions="Center"
+                                                        VerticalOptions="Center"
+                                                        Margin="8"
+                                                        x:Name="secondImageBorder">
+                                                    <Border.GestureRecognizers>
+                                                        <TapGestureRecognizer x:Name="secondImageBorderTap"
+                                                                              Tapped="secondImageBorderTap_Tapped"
+                                                                              AutomationId="{Binding TagId}"></TapGestureRecognizer>
+                                                        <TapGestureRecognizer x:Name="secondImageBorderDoubleTap"
+                                                                              NumberOfTapsRequired="2"
+                                                                              Tapped="secondImageBorderDoubleTap_Tapped"
+                                                                              AutomationId="{Binding TagId}"></TapGestureRecognizer>
+                                                    </Border.GestureRecognizers>
+                                                    <Image Aspect="AspectFill"
+                                                           Source="{Binding SourceImage}"
+                                                           HeightRequest="144"
+                                                           WidthRequest="96"></Image>
+                                                </Border>
+                                                <Image x:Name="secondCheckImage"
+                                                       Grid.Row="1"
+                                                       HeightRequest="32"
+                                                       WidthRequest="32"
+                                                       Aspect="AspectFill"
+                                                       IsVisible="false"
+                                                       Source="check_icon.png"
+                                                       AutomationId="{Binding TagId}"
+                                                       Loaded="secondCheckImage_Loaded"></Image>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CarouselView.ItemTemplate>
+                                </CarouselView>
+                            </Grid>
+                        </Border>
+
                     </VerticalStackLayout>
                 </Grid>
             </Border>

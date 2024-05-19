@@ -62,6 +62,8 @@
                                     </SwipeItems>
                                 </SwipeView.RightItems>
                                 <Border StrokeShape="RoundRectangle 20"
+                                        HeightRequest="288"
+                                        WidthRequest="198"
                                     HorizontalOptions="Center"
                                     VerticalOptions="Start">
                                     <Image Source="{Binding SourceImage}"

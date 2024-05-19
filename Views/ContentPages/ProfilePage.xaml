@@ -90,13 +90,16 @@
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>
                                 </CollectionView>
-                                <HorizontalStackLayout Grid.Row="1"
-                                                       Margin="4,12,0,16"
-                                                       Spacing="8">
-                                </HorizontalStackLayout>
                             </Grid>
                         </Grid>
                     </Border>
+                    <Button Margin="16"
+                            Text="Пройти тест снова"
+                            FontSize="16"
+                            BackgroundColor="#5a8b96"
+                            Padding="16,8"
+                            x:Name="getTestButton"
+                            Clicked="getTestButton_Clicked"></Button>
                 </VerticalStackLayout>
             </Grid>
         </Grid>

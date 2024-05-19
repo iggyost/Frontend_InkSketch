@@ -9,137 +9,95 @@ public partial class HomePage : ContentPage
     public HomePage()
     {
         InitializeComponent();
-
+        DataList.Clear();
+        categoriesList.Clear();
+        favorites.Clear();
+        selectedCategory = 0;
+        skipCount = 0;
+        imagesCv.ItemsSource = null;
     }
-    public static List<ImagesView> imagesViews = new List<ImagesView>();
     public ObservableCollection<ImagesView> DataList { get; set; } = new ObservableCollection<ImagesView>();
-    public static int thresHoldCount;
-    private bool _isLoading;
-    public bool IsLoading
+    public static List<Category> categoriesList = new List<Category>();
+    public static List<FavoritesView> favorites = new List<FavoritesView>();
+    public static int selectedCategory = 0;
+    public static int skipCount = 0;
+    public async void LoadCategories()
     {
-        get => _isLoading;
-        set { _isLoading = value; OnPropertyChanged(); }
-    }
-    private async void imagesCv_Loaded(object sender, EventArgs e)
-    {
-        SetContentLoading();
-
-        if (thresHoldCount == 0)
+        HttpClient client = new HttpClient();
+        HttpResponseMessage response = await client.GetAsync($"{App.conString}categories/get");
+        if (response.IsSuccessStatusCode)
         {
-            HttpClient client = new HttpClient();
-
-            HttpResponseMessage response = await client.GetAsync($"{App.conString}imagesview/get/rec/{App.enteredUser.UserId}/{0}");
-
-            if (response.IsSuccessStatusCode)
+            string content = await response.Content.ReadAsStringAsync();
+            categoriesList = JsonConvert.DeserializeObject<Category[]>(content).ToList();
+            Category categoryAll = new Category()
             {
-                string content = await response.Content.ReadAsStringAsync();
-                var newImageView = JsonConvert.DeserializeObject<ImagesView[]>(content);
-                imagesViews.AddRange(newImageView);
-                foreach (ImagesView imageView in imagesViews)
-                {
-                    DataList.Add(imageView);
-                }
-                imagesCv.ItemsSource = DataList;
-                //imagesCv.ItemsSource = imagesViews.ToList();
-            }
+                CategoryId = 0,
+                Name = "Все"
+            };
+            categoriesList.Add(categoryAll);
+            categoryPicker.ItemsSource = categoriesList;
         }
-        else
-        {
-
-        }
-
-        ContentLoaded();
     }
-
-    private async void imagesCv_RemainingItemsThresholdReached(object sender, EventArgs e)
+    public async void LoadTattoes()
     {
-        SetContentLoading();
+        AnimationLoading(true);
+
         try
         {
-            thresHoldCount = thresHoldCount + 4;
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync($"{App.conString}imagesview/get/rec/{App.enteredUser.UserId}/{thresHoldCount}");
-
+            HttpResponseMessage response = await client.GetAsync($"{App.conString}imagesview/get/rec/{App.enteredUser.UserId}/{skipCount}/{selectedCategory}");
             if (response.IsSuccessStatusCode)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                var newImageView = JsonConvert.DeserializeObject<ImagesView[]>(content);
-                foreach (var item in newImageView)
+                var imagesList = JsonConvert.DeserializeObject<ImagesView[]>(content).ToList();
+                foreach (var item in imagesList)
                 {
                     DataList.Add(item);
                 }
                 imagesCv.ItemsSource = DataList;
-                //imagesCv.ItemsSource = imagesViews.ToList();
             }
         }
         catch (Exception)
         {
 
         }
-        ContentLoaded();
-    }
-    public void SetContentLoading()
-    {
-        cvFooterActInd.IsRunning = true;
-        imagesCv.IsEnabled = false;
-        IsBusy = true;
-    }
-    public void ContentLoaded()
-    {
-        cvFooterActInd.IsRunning = false;
-        imagesCv.IsEnabled = true;
-        IsBusy = false;
-    }
 
-    private void Border_Loaded(object sender, EventArgs e)
-    {
-        Border border = (Border)sender;
-        var borderId = int.Parse(border.AutomationId);
-        var selectedImage = DataList.Where(x => x.ImageId == borderId).FirstOrDefault();
-        if (selectedImage != null)
-        {
-            border.Background = Color.FromArgb(selectedImage.HexColor);
-        }
+        AnimationLoading(false);
     }
-
-    private void Label_Loaded(object sender, EventArgs e)
+    public async void AnimationLoading(bool isLoading)
     {
-        Label label = (Label)sender;
-        var labelId = int.Parse(label.AutomationId);
-        var selectedImage = DataList.Where(x => x.ImageId == labelId).FirstOrDefault();
-        if (selectedImage != null)
+        if (isLoading)
         {
-            label.Text = "#" + selectedImage.Name;
-        }
-    }
-
-    private async void homePage_Loaded(object sender, EventArgs e)
-    {
-        HttpClient client = new HttpClient();
-        var response = await client.GetAsync($"{App.conString}favoritesview/get/{App.enteredUser.UserId}");
-        if (response.IsSuccessStatusCode)
-        {
-            string content = await response.Content.ReadAsStringAsync();
-            favorites = JsonConvert.DeserializeObject<FavoritesView[]>(content).ToList();
-        }
-    }
-
-    private void favoriteBtn_Loaded(object sender, EventArgs e)
-    {
-        ImageButton imageButton = (ImageButton)sender;
-        var imageButtonId = int.Parse(imageButton.AutomationId);
-        var IsImageFavorite = favorites.Where(x => x.ImageId == imageButtonId && x.UserId == App.enteredUser.UserId).FirstOrDefault();
-        if (IsImageFavorite != null)
-        {
-            imageButton.Source = "favorite_icon_filled.png";
+            cvFooterActInd.IsRunning = true;
+            imagesCv.IsEnabled = false;
+            IsBusy = true;
         }
         else
         {
-            imageButton.Source = "favorite_icon.png";
+            cvFooterActInd.IsRunning = false;
+            imagesCv.IsEnabled = true;
+            IsBusy = false;
+        }
+    }
+    private void imagesCv_RemainingItemsThresholdReached(object sender, EventArgs e)
+    {
+        skipCount = skipCount + 4;
+        LoadTattoes();
+    }
+    private void categoryPicker_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        var selectedItem = categoryPicker.SelectedItem as Category;
+        if (selectedItem != null)
+        {
+            selectedCategory = selectedItem.CategoryId;
+            DataList.Clear();
+            imagesCv.ItemsSource = null;
+            skipCount = 0;
+            LoadTattoes();
         }
     }
 
-    public static List<FavoritesView> favorites = new List<FavoritesView>();
+
     private async void favoriteBtn_Clicked(object sender, EventArgs e)
     {
         ImageButton imageButton = (ImageButton)sender;
@@ -179,17 +137,67 @@ public partial class HomePage : ContentPage
         }
     }
 
+    private void favoriteBtn_Loaded(object sender, EventArgs e)
+    {
+        ImageButton imageButton = (ImageButton)sender;
+        var imageButtonId = int.Parse(imageButton.AutomationId);
+        var IsImageFavorite = favorites.Where(x => x.ImageId == imageButtonId && x.UserId == App.enteredUser.UserId).FirstOrDefault();
+        if (IsImageFavorite != null)
+        {
+            imageButton.Source = "favorite_icon_filled.png";
+        }
+        else
+        {
+            imageButton.Source = "favorite_icon.png";
+        }
+    }
+
+    private void TagBorder_Loaded(object sender, EventArgs e)
+    {
+        Border border = (Border)sender;
+        var borderId = int.Parse(border.AutomationId);
+        var selectedImage = DataList.Where(x => x.ImageId == borderId).FirstOrDefault();
+        if (selectedImage != null)
+        {
+            border.Background = Color.FromArgb(selectedImage.HexColor);
+        }
+    }
+
+    private void NameTagLabel_Loaded(object sender, EventArgs e)
+    {
+        Label label = (Label)sender;
+        var labelId = int.Parse(label.AutomationId);
+        var selectedImage = DataList.Where(x => x.ImageId == labelId).FirstOrDefault();
+        if (selectedImage != null)
+        {
+            label.Text = "#" + selectedImage.Name;
+        }
+    }
+
+    private async void homePage_Loaded(object sender, EventArgs e)
+    {
+        LoadCategories();
+        LoadTattoes();
+        HttpClient client = new HttpClient();
+        var response = await client.GetAsync($"{App.conString}favoritesview/get/{App.enteredUser.UserId}");
+        if (response.IsSuccessStatusCode)
+        {
+            string content = await response.Content.ReadAsStringAsync();
+            favorites = JsonConvert.DeserializeObject<FavoritesView[]>(content).ToList();
+        }
+    }
+
     private async void refreshCv_Refreshing(object sender, EventArgs e)
     {
         refreshCv.IsRefreshing = true;
-        SetContentLoading();
+        AnimationLoading(true);
 
         DataList.Clear();
-        imagesViews.Clear();
-        thresHoldCount = 0;
+        imagesCv.ItemsSource = null;
+        skipCount = 0;
         favorites.Clear();
 
-        if (thresHoldCount == 0)
+        if (skipCount == 0)
         {
             HttpClient refClient = new HttpClient();
             var refResponse = await refClient.GetAsync($"{App.conString}favoritesview/get/{App.enteredUser.UserId}");
@@ -199,29 +207,14 @@ public partial class HomePage : ContentPage
                 favorites = JsonConvert.DeserializeObject<FavoritesView[]>(refContent).ToList();
             }
 
-            HttpClient client = new HttpClient();
-            var response = await client.GetAsync($"{App.conString}imagesview/get/rec/{App.enteredUser.UserId}/{0}");
-            if (response.IsSuccessStatusCode)
-            {
-                string content = await response.Content.ReadAsStringAsync();
-                var newImageView = JsonConvert.DeserializeObject<ImagesView[]>(content);
-                imagesViews.AddRange(newImageView);
-                foreach (ImagesView imageView in imagesViews)
-                {
-                    DataList.Add(imageView);
-                }
-
-
-                imagesCv.ItemsSource = DataList;
-                //imagesCv.ItemsSource = imagesViews.ToList();
-            }
+            LoadTattoes();
         }
         else
         {
 
         }
 
-        ContentLoaded();
+        AnimationLoading(false);
         refreshCv.IsRefreshing = false;
     }
 }

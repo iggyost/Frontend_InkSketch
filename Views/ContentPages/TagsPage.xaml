@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Frontend_InkSketch.Views.ContentPages"
-             x:Class="Frontend_InkSketch.Views.ContentPages.HomePage"
-             Title="HomePage"
+             x:Class="Frontend_InkSketch.Views.ContentPages.TagsPage"
+             Title="TagsPage"
              Shell.NavBarIsVisible="False"
-             x:Name="homePage"
-             Loaded="homePage_Loaded">
+             Loaded="ContentPage_Loaded">
     <Grid>
         <Image Source="back_main.png"></Image>
         <Grid>
@@ -22,7 +20,7 @@
                     StrokeShape="RoundRectangle 20">
                 <Picker HorizontalOptions="Center"
                         VerticalOptions="Center"
-                        Title="Категория"
+                        Title="Тег"
                         FontSize="18"
                         FontFamily="Pacifico-Regular"
                         FontAttributes="Bold"
@@ -36,8 +34,6 @@
                          Refreshing="refreshCv_Refreshing"
                          Grid.Row="1">
                 <CollectionView x:Name="imagesCv"
-                                RemainingItemsThreshold="2"
-                                RemainingItemsThresholdReached="imagesCv_RemainingItemsThresholdReached"
                                 Grid.Row="1"
                                 VerticalScrollBarVisibility="Always">
                     <CollectionView.ItemsLayout>
@@ -74,22 +70,6 @@
                                         <Image Source="{Binding SourceImage}"
                                                Aspect="AspectFill"></Image>
                                     </Grid>
-                                </Border>
-
-                                <Border Background="{Binding HexColor}"
-                                        AutomationId="{Binding ImageId}"
-                                        x:Name="TagBorder"
-                                        Loaded="TagBorder_Loaded"
-                                        StrokeThickness="0"
-                                        StrokeShape="RoundRectangle 20"
-                                        Padding="8,4">
-                                    <Label TextColor="White"
-                                           AutomationId="{Binding ImageId}"
-                                           x:Name="NameTagLabel"
-                                           Loaded="NameTagLabel_Loaded"
-                                           HorizontalOptions="Center"
-                                           FontAttributes="Bold"
-                                           Text="{Binding Name, StringFormat='{}#{0}'}"></Label>
                                 </Border>
 
                             </VerticalStackLayout>

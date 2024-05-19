@@ -11,6 +11,7 @@ public partial class ProfilePage : ContentPage
     {
         InitializeComponent();
         userNameLbl.Text = App.enteredUser.Name;
+        LoadProfileTags();
     }
 
     private async void ImageButton_Clicked(object sender, EventArgs e)
@@ -28,8 +29,7 @@ public partial class ProfilePage : ContentPage
             }
         }
     }
-
-    private async void ContentPage_Loaded(object sender, EventArgs e)
+    public async void LoadProfileTags()
     {
         HttpClient client = new HttpClient();
         var response = await client.GetAsync($"{App.conString}profilesview/get/{App.enteredUser.UserId}");
@@ -40,6 +40,9 @@ public partial class ProfilePage : ContentPage
             tagsCv.ItemsSource = userTags.ToList();
         }
     }
+    private async void ContentPage_Loaded(object sender, EventArgs e)
+    {
+    }
 
     private async void exitBtn_Clicked(object sender, EventArgs e)
     {
@@ -49,6 +52,16 @@ public partial class ProfilePage : ContentPage
             Application.Current.MainPage = new WelcomePage();
             App.enteredUser = null;
             App.enteredPhone = null;
+        }
+    }
+
+    private async void getTestButton_Clicked(object sender, EventArgs e)
+    {
+        HttpClient client = new HttpClient();
+        HttpResponseMessage response = await client.GetAsync($"{App.conString}userstags/remove/{App.enteredUser.UserId}");
+        if (response.IsSuccessStatusCode)
+        {
+            Application.Current.MainPage = new QuestionsPage();
         }
     }
 }

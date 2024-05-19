@@ -1,4 +1,5 @@
 using Frontend_InkSketch.ApplicationData;
+using Newtonsoft.Json;
 using System.Net.Http.Json;
 
 namespace Frontend_InkSketch.Views.ContentPages;
@@ -40,7 +41,8 @@ public partial class RegistrationPage : ContentPage
             var response = await client.PostAsJsonAsync($"{App.conString}users/reg", newUser);
             if (response.IsSuccessStatusCode)
             {
-                App.enteredUser = newUser;
+                string content = await response.Content.ReadAsStringAsync();
+                App.enteredUser = JsonConvert.DeserializeObject<User>(content);
                 Application.Current.MainPage = new QuestionsPage();
             }
             else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
